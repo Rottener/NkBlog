@@ -6,18 +6,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NkBlog.Blog.Models;
 using NkBlog.IServices;
+using NkBolg.Common.Utils;
 
 namespace NkBlog.Blog.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IArticleInfoServices _articleInfoServices;
-        public HomeController(IArticleInfoServices articleInfoServices)
+        private readonly ISysAccountServices _sysAccountServices;
+        public HomeController(IArticleInfoServices articleInfoServices, ISysAccountServices sysAccountServices)
         {
             _articleInfoServices = articleInfoServices;
+            _sysAccountServices = sysAccountServices;
         }
         public IActionResult Index()
         {
+            string ency= EncryptUtil.MD5Encrypt32("1059727415166767104" + "123456");
+            var operateResult = _sysAccountServices.Login("root","123456");
             return View();
         }
 

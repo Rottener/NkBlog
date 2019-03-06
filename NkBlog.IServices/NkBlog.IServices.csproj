@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NkBlog.Entities\NkBlog.Entities.csproj" />
+    <ProjectReference Include="..\NkBolg.Common\NkBolg.Common.csproj" />
   </ItemGroup>
 
 </Project>

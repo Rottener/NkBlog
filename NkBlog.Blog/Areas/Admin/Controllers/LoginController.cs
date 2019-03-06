@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NkBlog.Entities.DTO;
+using NkBlog.IServices;
 using NkBolg.Common.Auth;
 using NkBolg.Common.Log;
 
@@ -13,6 +14,11 @@ namespace NkBlog.Blog.Areas.Admin.Controllers
     [Area("Admin")]
     public class LoginController : Controller
     {
+        private readonly ISysAccountServices _sysAccountServices;
+        public LoginController(ISysAccountServices sysAccountServices)
+        {
+            _sysAccountServices = sysAccountServices;
+        }
         public IActionResult Index()
         {
             return View();
@@ -42,20 +48,20 @@ namespace NkBlog.Blog.Areas.Admin.Controllers
             {
                 //清除验证码
                 HttpContext.Session.Remove("VerifyCode");
-                var operateResult = _sysAccountLogic.Login(userName, password);
-                AuthorizationUser auth = operateResult.Data;
-                if (auth != null)
-                {
-                    await AuthenticationHelper.SetAuthCookie(auth);
-                    result.Status = ResultStatus.Success;
-                    result.Data = "/Main/Home/Index";
+                var operateResult = _sysAccountServices.AccountDetail(userName);
+                //AuthorizationUser auth = operateResult.Data;
+                //if (auth != null)
+                //{
+                //    await AuthenticationHelper.SetAuthCookie(auth);
+                //    result.Status = ResultStatus.Success;
+                //    result.Data = "/Main/Home/Index";
 
-                    #region 记录登录日志
-                    LoginLogHandler loginLog = new LoginLogHandler(auth.LoginId);
-                    loginLog.WriteLog();
-                    #endregion
-                }
-                result.Message = operateResult.Message;
+                //    #region 记录登录日志
+                //    LoginLogHandler loginLog = new LoginLogHandler(auth.LoginId);
+                //    loginLog.WriteLog();
+                //    #endregion
+                //}
+                //result.Message = operateResult.Message;
             }
             return Json(result);
         }
