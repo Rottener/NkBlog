@@ -1,9 +1,11 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Dapper;
+using Microsoft.Extensions.Options;
 using NkBlog.Entities;
 using NkBlog.IRepository;
 using NkBolg.Common.Dapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace NkBlog.Repository
@@ -13,5 +15,7 @@ namespace NkBlog.Repository
         public ArticleInfoRepository(IOptions<DapperOptions> options) : base(options)
         {
         }
+
+       
     }
 }
