@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html class="loginHtml" >
 <head>
     <meta charset="utf-8">
     <title>1</title>
@@ -13,18 +13,7 @@
     <link href="~/lib/layui/css/layui.css" rel="stylesheet" />
     <link href="~/css/public.css" rel="stylesheet" />
 </head>
-<body>
-    <script type="text/javascript">
-        var currUrl = window.location.pathname.toLowerCase();
-        if (currUrl.indexOf("login") > -1 || currUrl == "/" || currUrl == "/admin") {
-            document.getElementsByTagName("html")[0].className = "loginHtml";
-            document.getElementsByTagName("body")[0].className = "loginBody";
-        } else if (currUrl.indexOf("main") > -1) {
-            document.getElementsByTagName("body")[0].className = "main_body";
-        } else {
-            document.getElementsByTagName("body")[0].className = "childrenBody";
-        }
-    </script>
+<body class="loginBody">
     <form class="layui-form">
         <div class="login_face"><img src="~/images/default.png" class="userAvatar"></div>
         <div class="layui-form-item input-item">
@@ -38,7 +27,7 @@
         <div class="layui-form-item input-item" id="imgCode">
             <label for="code">验证码</label>
             <input type="text" placeholder="请输入验证码" autocomplete="off" id="code" maxlength="4" class="layui-input" lay-verify="required">
-            @*<img id="imgVerifyCode" src="/Main/Login/ValidateCode" onclick="this.src='/Main/Login/ValidateCode?'+Math.random();" />*@
+            <img id="imgVerifyCode" src="/Admin/Login/ValidateCode" onclick="this.src='/Admin/Login/ValidateCode?'+Math.random();" />
         </div>
         <div class="layui-form-item">
             <button class="layui-btn layui-block" lay-filter="login" lay-submit>登录</button>

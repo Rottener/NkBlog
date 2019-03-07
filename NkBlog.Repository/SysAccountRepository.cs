@@ -20,7 +20,7 @@ namespace NkBlog.Repository
 
         public AccountDetailsDto AccountDetail(string accountId)
         {
-            string sql = "select * from sysaccount as a inner join sysuser as u on a.AccountId=u.AccountId";
+            string sql = $"select * from sysaccount as a inner join sysuser as u on a.AccountId=u.AccountId where UserName='{accountId}'";
             var s = _dbConnection.Query<SysAccount, SysUser, AccountDetailsDto, AccountDetailsDto>(sql, (a, u,ad) =>
             {
                 a.AccountId = u.AccountId;

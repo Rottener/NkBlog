@@ -21,8 +21,11 @@ namespace NkBlog.Blog.Controllers
         }
         public IActionResult Index()
         {
-            string ency= EncryptUtil.MD5Encrypt32("1059727415166767104" + "123456");
-            var operateResult = _sysAccountServices.Login("root","123456");
+            var d = new DateTime(2019, 1, 2);
+            var c = DateTime.Now;
+            var f= c - d;
+            var day= f.Days;
+            string ssss= EncryptUtil.MD5Encrypt32("1059728142672990208" + "123456");
             return View();
         }
 

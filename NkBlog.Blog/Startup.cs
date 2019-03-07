@@ -33,7 +33,7 @@ namespace NkBlog.Blog
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;//为 True 时获取不到 Session 的值
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 

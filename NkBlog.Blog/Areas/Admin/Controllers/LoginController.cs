@@ -8,6 +8,7 @@ using NkBlog.Entities.DTO;
 using NkBlog.IServices;
 using NkBolg.Common.Auth;
 using NkBolg.Common.Log;
+using NkBolg.Common.Utils;
 
 namespace NkBlog.Blog.Areas.Admin.Controllers
 {
@@ -48,22 +49,38 @@ namespace NkBlog.Blog.Areas.Admin.Controllers
             {
                 //清除验证码
                 HttpContext.Session.Remove("VerifyCode");
-                var operateResult = _sysAccountServices.AccountDetail(userName);
-                //AuthorizationUser auth = operateResult.Data;
-                //if (auth != null)
-                //{
-                //    await AuthenticationHelper.SetAuthCookie(auth);
-                //    result.Status = ResultStatus.Success;
-                //    result.Data = "/Main/Home/Index";
+                var operateResult = _sysAccountServices.Login(userName, password);
+                //var operateResult = _sysAccountServices.AccountDetail(userName);
+                AuthorizationUser auth = operateResult.Data;
+                if (auth != null)
+                {
+                    await AuthenticationHelper.SetAuthCookie(auth);
+                    result.Status = ResultStatus.Success;
+                    result.Data = "/Admin/Home/Index";
 
-                //    #region 记录登录日志
-                //    LoginLogHandler loginLog = new LoginLogHandler(auth.LoginId);
-                //    loginLog.WriteLog();
-                //    #endregion
-                //}
-                //result.Message = operateResult.Message;
+                    #region 记录登录日志
+                    LoginLogHandler loginLog = new LoginLogHandler(auth.LoginId);
+                    loginLog.WriteLog();
+                    #endregion
+                }
+                result.Message = operateResult.Message;
             }
             return Json(result);
+        }
+
+        /// <summary>
+        /// 获取验证码
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public FileContentResult ValidateCode()
+        {
+            VerifyCodeUtil code = new VerifyCodeUtil();
+            code.SetHeight = 36;
+            code.SetForeNoisePointCount = 4;
+            var byteImg = code.GetVerifyCodeImage();
+            HttpContext.Session.SetString("VerifyCode", code.SetVerifyCodeText);
+            return File(byteImg, @"image/jpeg");
         }
     }
 }
