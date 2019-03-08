@@ -21,6 +21,7 @@ namespace NkBlog.Blog.Controllers
         }
         public IActionResult Index()
         {
+            var dd = DateTime.Now;
             var d = new DateTime(2019, 1, 2);
             var c = DateTime.Now;
             var f= c - d;

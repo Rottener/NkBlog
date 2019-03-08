@@ -55,7 +55,7 @@ namespace NkBlog.Blog
                 //不使用驼峰样式的key
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                 //设置时间格式
-                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+                //options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
 
             //设置认证cookie名称、过期时间、是否允许客户端读取

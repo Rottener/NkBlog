@@ -41,7 +41,7 @@ namespace NkBlog.Services
             {
                 result.Status = ResultStatus.Success;
                 var user = accountDetail.MapTo<AuthorizationUser, AccountDetailsDto>();
-                user.LoginId = new Guid().ToString();
+                user.LoginId = Guid.NewGuid().ToString();
                 user.HeadIcon = user.HeadIcon ?? "/images/default.png";
                 result.Data = user;
             }
